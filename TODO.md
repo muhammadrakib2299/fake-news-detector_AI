@@ -15,9 +15,9 @@
 - [x] Initialize git repo + write `.gitignore`
 
 ### Data
-- [ ] Download LIAR dataset
-- [ ] Download ISOT Fake News dataset
-- [ ] Download FakeNewsNet dataset
+- [x] Download LIAR dataset
+- [x] Download ISOT Fake News dataset
+- [x] Download FakeNewsNet dataset
 - [ ] Create data exploration notebook (`01_data_exploration.ipynb`)
 - [ ] Clean and preprocess all datasets
 - [ ] Create unified train/val/test splits
