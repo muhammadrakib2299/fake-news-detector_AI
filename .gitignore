@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data files (too large for git)
+data/raw/*.csv
+data/raw/*.tsv
+data/raw/*.json
+data/raw/*.zip
+data/processed/*.csv
+data/processed/*.pkl
+data/processed/*.parquet
+
+# ML Models (too large for git)
+backend/ml/models/*.pt
+backend/ml/models/*.bin
+backend/ml/models/*.pkl
+backend/ml/models/*.joblib
+backend/ml/models/roberta-*
+*.h5
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node (frontend has its own .gitignore too)
+node_modules/
+
+# Docker
+postgres_data/
+
+# Logs
+*.log
+
+# Test
+.coverage
+htmlcov/
+.pytest_cache/

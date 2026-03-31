@@ -12,7 +12,7 @@
 - [x] Initialize Next.js app with Tailwind CSS + shadcn/ui
 - [x] Set up Docker Compose for PostgreSQL
 - [x] Configure environment variables (`.env` files)
-- [ ] Initialize git repo + write `.gitignore`
+- [x] Initialize git repo + write `.gitignore`
 
 ### Data
 - [ ] Download LIAR dataset
@@ -164,10 +164,10 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1 — Foundation & ML | Not Started | 0/22 |
+| Phase 1 — Foundation & ML | In Progress | 6/22 |
 | Phase 2 — Core Features | Not Started | 0/21 |
 | Phase 3 — Polish & Explainability | Not Started | 0/18 |
 | Phase 4 — Bonus | Not Started | 0/11 |
 | Deployment | Not Started | 0/7 |
 | Documentation | Not Started | 0/6 |
-| **Total** | **Not Started** | **0/85** |
+| **Total** | **In Progress** | **6/85** |
