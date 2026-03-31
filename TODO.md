@@ -9,7 +9,7 @@
 ### Setup
 - [x] Initialize monorepo folder structure
 - [x] Set up Python virtual environment + install dependencies
-- [ ] Initialize Next.js app with Tailwind CSS + shadcn/ui
+- [x] Initialize Next.js app with Tailwind CSS + shadcn/ui
 - [ ] Set up Docker Compose for PostgreSQL
 - [ ] Configure environment variables (`.env` files)
 - [ ] Initialize git repo + write `.gitignore`
