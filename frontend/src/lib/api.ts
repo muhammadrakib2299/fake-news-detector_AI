@@ -1,0 +1,161 @@
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+export type InputType = "text" | "url" | "claim";
+
+export interface AnalyzeRequest {
+  content: string;
+  input_type: InputType;
+}
+
+export interface ClassificationResult {
+  verdict: string;
+  fake_probability: number;
+  real_probability: number;
+  model: string;
+}
+
+export interface SentimentResult {
+  vader_compound: number;
+  sensationalism_score: number;
+  sentiment_score: number;
+}
+
+export interface CredibilityResult {
+  domain: string | null;
+  score: number;
+  credibility_level: string;
+  category: string;
+  bias: string;
+  is_flagged: boolean;
+  in_database: boolean;
+  credibility_score: number;
+}
+
+export interface FactCheckMatch {
+  claim_text: string;
+  claimant: string;
+  rating: string;
+  publisher: string;
+  url: string;
+  review_date: string;
+  language: string;
+}
+
+export interface FactCheckResult {
+  has_matches: boolean;
+  match_count: number;
+  matches: FactCheckMatch[];
+  fact_check_score: number;
+  api_available: boolean;
+}
+
+export interface ArticleInfo {
+  title: string | null;
+  authors: string[];
+  publish_date: string | null;
+  source_domain: string | null;
+}
+
+export interface AnalyzeResponse {
+  id: string;
+  verdict: "Real" | "Misleading" | "Fake";
+  confidence: number;
+  final_score: number;
+  input_text: string;
+  analyzed_text: string | null;
+  input_type: string;
+  model_used: string;
+  created_at: string | null;
+  classification: ClassificationResult;
+  sentiment: SentimentResult;
+  credibility: CredibilityResult;
+  fact_check: FactCheckResult;
+  article_info: ArticleInfo | null;
+}
+
+export interface AnalysisSummary {
+  id: string;
+  verdict: string;
+  confidence: number;
+  final_score: number;
+  input_type: string;
+  input_text: string;
+  model_used: string;
+  created_at: string | null;
+}
+
+export interface HistoryResponse {
+  items: AnalysisSummary[];
+  total: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
+
+export async function analyzeContent(
+  request: AnalyzeRequest
+): Promise<AnalyzeResponse> {
+  const res = await fetch(`${API_BASE}/analyze`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(request),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({ detail: "Analysis failed" }));
+    throw new Error(error.detail || `HTTP ${res.status}`);
+  }
+
+  return res.json();
+}
+
+export async function getAnalysis(id: string): Promise<AnalyzeResponse> {
+  const res = await fetch(`${API_BASE}/analyze/${id}`);
+
+  if (!res.ok) {
+    throw new Error(res.status === 404 ? "Analysis not found" : `HTTP ${res.status}`);
+  }
+
+  return res.json();
+}
+
+export async function getHistory(
+  page = 1,
+  pageSize = 20,
+  verdict?: string
+): Promise<HistoryResponse> {
+  const params = new URLSearchParams({
+    page: page.toString(),
+    page_size: pageSize.toString(),
+  });
+  if (verdict) params.set("verdict", verdict);
+
+  const res = await fetch(`${API_BASE}/history?${params}`);
+
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+
+  return res.json();
+}
+
+export async function submitFeedback(
+  analysisId: string,
+  isCorrect: boolean,
+  userVerdict?: string,
+  comment?: string
+): Promise<void> {
+  const res = await fetch(`${API_BASE}/feedback/${analysisId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      is_correct: isCorrect,
+      user_verdict: userVerdict,
+      comment,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+}
