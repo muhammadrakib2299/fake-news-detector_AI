@@ -49,31 +49,33 @@
 ## Phase 2 — Core Features & Frontend
 
 ### Backend Services
-- [ ] Implement `classifier.py` — RoBERTa inference wrapper
-- [ ] Implement `sentiment.py` — VADER + sensationalism scoring
-- [ ] Implement `credibility.py` — domain reputation lookup
-- [ ] Build `sources_credibility.json` (500+ domains with trust scores)
-- [ ] Implement `scraper.py` — URL → article text extraction
-- [ ] Implement `fact_checker.py` — Google Fact Check API
-- [ ] Create `pipeline.py` — orchestrate all services with weighted scoring
+- [x] Implement `classifier.py` — RoBERTa inference wrapper + baseline fallback
+- [x] Implement `sentiment.py` — VADER + sensationalism scoring
+- [x] Implement `credibility.py` — domain reputation lookup
+- [x] Build `sources_credibility.json` (520 domains with trust scores)
+- [x] Implement `scraper.py` — URL → article text extraction
+- [x] Implement `fact_checker.py` — Google Fact Check API
+- [x] Create `pipeline.py` — orchestrate all services with weighted scoring
 
 ### Database
-- [ ] Define SQLAlchemy models (`Analysis`, `Feedback`)
-- [ ] Set up Alembic migrations
-- [ ] Implement analysis persistence in `/analyze` endpoint
-- [ ] Implement `GET /analyze/{id}`
-- [ ] Implement `GET /history` with pagination
+- [x] Define SQLAlchemy models (`Analysis`, `Feedback`)
+- [x] Set up Alembic migrations
+- [x] Implement analysis persistence in `/analyze` endpoint
+- [x] Implement `GET /analyze/{id}`
+- [x] Implement `GET /history` with pagination
 
 ### Frontend Pages
-- [ ] Build landing page with analysis form (text / URL / claim inputs)
-- [ ] Build results page (`/results/[id]`)
-- [ ] Create `VerdictCard` component (color-coded score)
-- [ ] Create `CredibilityMeter` component
-- [ ] Create sentiment/bias display components
-- [ ] Create suspicious phrase highlighting
-- [ ] Create API client (`lib/api.ts`)
-- [ ] Add loading states and error handling
-- [ ] Make all pages responsive
+- [x] Build landing page with analysis form (text / URL / claim inputs)
+- [x] Build results page (`/results/[id]`)
+- [x] Create `VerdictCard` component (color-coded score + confidence ring)
+- [x] Create `ScoreBreakdown` component (weighted bar chart)
+- [x] Create sentiment/bias display components
+- [x] Create source credibility badge component
+- [x] Create fact-check section component
+- [x] Create API client (`lib/api.ts`)
+- [x] Add loading states and error handling
+- [x] Build history page with filtering and pagination
+- [x] Add user feedback (Correct/Incorrect) on results page
 
 ---
 
@@ -100,9 +102,9 @@
 - [ ] Allow public analysis without login
 
 ### Feedback System
-- [ ] Add Correct/Incorrect buttons on results page
-- [ ] Implement `POST /feedback/{id}` endpoint
-- [ ] Store feedback in database
+- [x] Add Correct/Incorrect buttons on results page
+- [x] Implement `POST /feedback/{id}` endpoint
+- [x] Store feedback in database
 
 ### UI Polish
 - [ ] Implement dark mode toggle
@@ -165,9 +167,9 @@
 | Phase | Status | Progress |
 |-------|--------|----------|
 | Phase 1 — Foundation & ML | Complete | 22/22 |
-| Phase 2 — Core Features | Not Started | 0/21 |
-| Phase 3 — Polish & Explainability | Not Started | 0/18 |
+| Phase 2 — Core Features | Complete | 23/23 |
+| Phase 3 — Polish & Explainability | Not Started | 3/18 |
 | Phase 4 — Bonus | Not Started | 0/11 |
 | Deployment | Not Started | 0/7 |
 | Documentation | Not Started | 0/6 |
-| **Total** | **In Progress** | **22/85** |
+| **Total** | **In Progress** | **48/87** |
