@@ -37,12 +37,12 @@
 - [x] Verify model loads and runs inference correctly
 
 ### Basic API
-- [ ] Create FastAPI app skeleton
-- [ ] Load model at startup
-- [ ] Implement `POST /analyze` (text → classification result)
-- [ ] Implement `GET /health`
-- [ ] Add CORS middleware
-- [ ] Test all endpoints via Swagger UI
+- [x] Create FastAPI app skeleton
+- [x] Load model at startup
+- [x] Implement `POST /analyze` (text → classification result)
+- [x] Implement `GET /health`
+- [x] Add CORS middleware
+- [x] Test all endpoints via Swagger UI
 
 ---
 
@@ -164,10 +164,10 @@
 
 | Phase | Status | Progress |
 |-------|--------|----------|
-| Phase 1 — Foundation & ML | In Progress | 12/22 |
+| Phase 1 — Foundation & ML | Complete | 22/22 |
 | Phase 2 — Core Features | Not Started | 0/21 |
 | Phase 3 — Polish & Explainability | Not Started | 0/18 |
 | Phase 4 — Bonus | Not Started | 0/11 |
 | Deployment | Not Started | 0/7 |
 | Documentation | Not Started | 0/6 |
-| **Total** | **In Progress** | **12/85** |
+| **Total** | **In Progress** | **22/85** |
