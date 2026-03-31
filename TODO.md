@@ -7,7 +7,7 @@
 ## Phase 1 — Foundation & ML Model
 
 ### Setup
-- [ ] Initialize monorepo folder structure
+- [x] Initialize monorepo folder structure
 - [ ] Set up Python virtual environment + install dependencies
 - [ ] Initialize Next.js app with Tailwind CSS + shadcn/ui
 - [ ] Set up Docker Compose for PostgreSQL
