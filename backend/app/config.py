@@ -9,8 +9,8 @@ class Settings(BaseSettings):
     app_env: str = "development"
     debug: bool = True
 
-    # Database
-    database_url: str = "postgresql://verifyai:verifyai_secret@localhost:5432/verifyai"
+    # Database (SQLite for dev, PostgreSQL for production)
+    database_url: str = "sqlite:///./verifyai.db"
 
     # CORS
     cors_origins: str = "http://localhost:3000"

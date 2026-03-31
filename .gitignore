@@ -55,6 +55,9 @@ node_modules/
 # Docker
 postgres_data/
 
+# SQLite databases
+*.db
+
 # Logs
 *.log
 
