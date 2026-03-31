@@ -10,9 +10,17 @@ router = APIRouter()
 @router.get("/health", response_model=HealthResponse)
 async def health():
     """Return service health status."""
-    classifier = get_classifier()
+    classifiers = get_classifier()
+    model_loaded = classifiers is not None and classifiers.get("primary") is not None
+
+    primary_model = None
+    if model_loaded:
+        primary = classifiers["primary"]
+        primary_model = getattr(primary, "__class__", type(primary)).__name__
+
     return HealthResponse(
         status="healthy",
-        model_loaded=classifier is not None,
-        version="0.1.0",
+        model_loaded=model_loaded,
+        primary_model=primary_model,
+        version="0.2.0",
     )
