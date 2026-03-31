@@ -23,10 +23,10 @@
 - [x] Create unified train/val/test splits
 
 ### Baseline Model
-- [ ] Create baseline model notebook (`02_baseline_model.ipynb`)
-- [ ] Implement TF-IDF + Logistic Regression pipeline
-- [ ] Train and evaluate — log accuracy, precision, recall, F1
-- [ ] Save trained model with joblib
+- [x] Create baseline model notebook (`02_baseline_model.ipynb`)
+- [x] Implement TF-IDF + Logistic Regression pipeline
+- [x] Train and evaluate — log accuracy, precision, recall, F1
+- [x] Save trained model with joblib
 
 ### RoBERTa Model
 - [ ] Create fine-tuning notebook (`03_roberta_finetuning.ipynb`)
