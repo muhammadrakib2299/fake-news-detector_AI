@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SessionProvider } from "@/components/session-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 import { Header } from "@/components/header";
 import "./globals.css";
 
@@ -29,8 +30,11 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <ThemeProvider>
         <SessionProvider>
           <Header />
           <main className="flex-1">{children}</main>
@@ -40,6 +44,7 @@ export default function RootLayout({
             </div>
           </footer>
         </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

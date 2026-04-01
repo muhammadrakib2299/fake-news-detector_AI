@@ -1,6 +1,7 @@
 "use client";
 
 import { UserMenu } from "./user-menu";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   return (
@@ -32,6 +33,7 @@ export function Header() {
               Dashboard
             </a>
           </nav>
+          <ThemeToggle />
           <UserMenu />
         </div>
       </div>
