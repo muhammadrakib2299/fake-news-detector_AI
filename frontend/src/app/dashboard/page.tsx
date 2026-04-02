@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { getStats, type StatsResponse } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,16 +25,18 @@ const VERDICT_COLORS: Record<string, string> = {
 };
 
 export default function DashboardPage() {
+  const { data: session } = useSession();
   const [stats, setStats] = useState<StatsResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    getStats()
+    const email = session?.user?.email ?? undefined;
+    getStats(email)
       .then(setStats)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [session]);
 
   if (loading) {
     return (
@@ -116,8 +119,8 @@ export default function DashboardPage() {
                   outerRadius={100}
                   paddingAngle={3}
                   dataKey="value"
-                  label={({ name, percent }) =>
-                    `${name} ${(percent * 100).toFixed(0)}%`
+                  label={({ name, percent }: { name?: string; percent?: number }) =>
+                    `${name ?? ""} ${((percent ?? 0) * 100).toFixed(0)}%`
                   }
                 >
                   {pieData.map((entry, index) => (

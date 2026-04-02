@@ -5,6 +5,8 @@ export type InputType = "text" | "url" | "claim";
 export interface AnalyzeRequest {
   content: string;
   input_type: InputType;
+  user_id?: string;
+  user_email?: string;
 }
 
 export interface ClassificationResult {
@@ -160,13 +162,15 @@ export async function getAnalysis(id: string): Promise<AnalyzeResponse> {
 export async function getHistory(
   page = 1,
   pageSize = 20,
-  verdict?: string
+  verdict?: string,
+  userEmail?: string
 ): Promise<HistoryResponse> {
   const params = new URLSearchParams({
     page: page.toString(),
     page_size: pageSize.toString(),
   });
   if (verdict) params.set("verdict", verdict);
+  if (userEmail) params.set("user_email", userEmail);
 
   const res = await fetch(`${API_BASE}/history?${params}`);
 
@@ -177,8 +181,11 @@ export async function getHistory(
   return res.json();
 }
 
-export async function getStats(): Promise<StatsResponse> {
-  const res = await fetch(`${API_BASE}/stats`);
+export async function getStats(userEmail?: string): Promise<StatsResponse> {
+  const params = userEmail
+    ? `?user_email=${encodeURIComponent(userEmail)}`
+    : "";
+  const res = await fetch(`${API_BASE}/stats${params}`);
 
   if (!res.ok) {
     throw new Error(`HTTP ${res.status}`);

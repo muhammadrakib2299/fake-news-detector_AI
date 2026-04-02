@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import { getHistory, type AnalysisSummary, type HistoryResponse } from "@/lib/api";
 import { Button } from "@/components/ui/button";
 
@@ -11,6 +12,7 @@ const VERDICT_COLORS: Record<string, string> = {
 };
 
 export default function HistoryPage() {
+  const { data: session } = useSession();
   const [data, setData] = useState<HistoryResponse | null>(null);
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState<string | undefined>(undefined);
@@ -18,11 +20,12 @@ export default function HistoryPage() {
 
   useEffect(() => {
     setLoading(true);
-    getHistory(page, 20, filter)
+    const email = session?.user?.email ?? undefined;
+    getHistory(page, 20, filter, email)
       .then(setData)
       .catch(() => setData(null))
       .finally(() => setLoading(false));
-  }, [page, filter]);
+  }, [page, filter, session]);
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">

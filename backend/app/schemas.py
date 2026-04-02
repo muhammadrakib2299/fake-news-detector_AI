@@ -16,6 +16,8 @@ class InputType(str, Enum):
 class AnalyzeRequest(BaseModel):
     content: str = Field(..., min_length=10, description="Text, URL, or claim to analyze")
     input_type: InputType = Field(default=InputType.TEXT, description="Type of input")
+    user_id: Optional[str] = Field(None, description="Authenticated user ID")
+    user_email: Optional[str] = Field(None, description="Authenticated user email")
 
 
 class FeedbackRequest(BaseModel):

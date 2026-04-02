@@ -39,6 +39,8 @@ async def analyze(request: AnalyzeRequest, db: Session = Depends(get_db)):
         # Persist to database
         analysis = Analysis(
             id=result["id"],
+            user_id=request.user_id,
+            user_email=request.user_email,
             input_text=request.content,
             input_type=request.input_type.value,
             source_url=request.content if request.input_type == "url" else None,
@@ -79,10 +81,14 @@ async def get_history(
     page: int = Query(1, ge=1, description="Page number"),
     page_size: int = Query(20, ge=1, le=100, description="Items per page"),
     verdict: str = Query(None, description="Filter by verdict: Real, Misleading, Fake"),
+    user_email: str = Query(None, description="Filter by user email"),
     db: Session = Depends(get_db),
 ):
     """Get analysis history with pagination."""
     query = db.query(Analysis)
+
+    if user_email:
+        query = query.filter(Analysis.user_email == user_email)
 
     if verdict:
         query = query.filter(Analysis.verdict == verdict)
@@ -151,14 +157,21 @@ async def submit_feedback(
 
 
 @router.get("/stats", response_model=StatsResponse)
-async def get_stats(db: Session = Depends(get_db)):
+async def get_stats(
+    user_email: str = Query(None, description="Filter stats by user email"),
+    db: Session = Depends(get_db),
+):
     """Get aggregate dashboard statistics."""
+    base_query = db.query(Analysis)
+    if user_email:
+        base_query = base_query.filter(Analysis.user_email == user_email)
+
     # Total analyses
-    total = db.query(func.count(Analysis.id)).scalar() or 0
+    total = base_query.with_entities(func.count(Analysis.id)).scalar() or 0
 
     # Verdict distribution
     verdict_rows = (
-        db.query(Analysis.verdict, func.count(Analysis.id))
+        base_query.with_entities(Analysis.verdict, func.count(Analysis.id))
         .group_by(Analysis.verdict)
         .all()
     )
@@ -168,12 +181,12 @@ async def get_stats(db: Session = Depends(get_db)):
 
     # Trends — daily counts for the last 30 days
     thirty_days_ago = datetime.now(timezone.utc) - timedelta(days=30)
+    trend_query = base_query.filter(Analysis.created_at >= thirty_days_ago)
     trend_rows = (
-        db.query(
+        trend_query.with_entities(
             func.date(Analysis.created_at).label("date"),
             func.count(Analysis.id).label("count"),
         )
-        .filter(Analysis.created_at >= thirty_days_ago)
         .group_by(func.date(Analysis.created_at))
         .order_by(func.date(Analysis.created_at))
         .all()
@@ -182,7 +195,7 @@ async def get_stats(db: Session = Depends(get_db)):
 
     # Recent analyses (last 5)
     recent = (
-        db.query(Analysis)
+        base_query
         .order_by(Analysis.created_at.desc())
         .limit(5)
         .all()
@@ -202,13 +215,13 @@ async def get_stats(db: Session = Depends(get_db)):
     ]
 
     # Most flagged sources — domains with highest avg fake scores
+    flagged_query = base_query.filter(Analysis.source_url.isnot(None))
     flagged_rows = (
-        db.query(
+        flagged_query.with_entities(
             Analysis.source_url,
             func.count(Analysis.id).label("count"),
             func.avg(Analysis.final_score).label("avg_score"),
         )
-        .filter(Analysis.source_url.isnot(None))
         .group_by(Analysis.source_url)
         .having(func.count(Analysis.id) >= 1)
         .order_by(func.avg(Analysis.final_score).desc())

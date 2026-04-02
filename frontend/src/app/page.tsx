@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { analyzeContent, type InputType } from "@/lib/api";
 
@@ -26,6 +27,7 @@ const INPUT_TABS: { label: string; value: InputType; placeholder: string }[] = [
 
 export default function Home() {
   const router = useRouter();
+  const { data: session } = useSession();
   const [inputType, setInputType] = useState<InputType>("text");
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -47,6 +49,8 @@ export default function Home() {
       const result = await analyzeContent({
         content: content.trim(),
         input_type: inputType,
+        user_id: session?.user?.id,
+        user_email: session?.user?.email ?? undefined,
       });
       router.push(`/results/${result.id}`);
     } catch (err) {

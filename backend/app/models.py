@@ -14,6 +14,10 @@ class Analysis(Base):
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), index=True)
 
+    # User (nullable — public analyses don't require login)
+    user_id = Column(String(255), nullable=True, index=True)
+    user_email = Column(String(255), nullable=True)
+
     # Input
     input_text = Column(Text, nullable=False)
     input_type = Column(String(20), nullable=False)  # text, url, claim
@@ -43,6 +47,8 @@ class Analysis(Base):
         return {
             "id": self.id,
             "created_at": self.created_at.isoformat() if self.created_at else None,
+            "user_id": self.user_id,
+            "user_email": self.user_email,
             "input_text": self.input_text,
             "input_type": self.input_type,
             "source_url": self.source_url,

@@ -98,7 +98,7 @@
 ### Authentication
 - [x] Set up NextAuth.js (Google + GitHub providers)
 - [x] Add protected routes (dashboard, history)
-- [ ] Associate analyses with user accounts
+- [x] Associate analyses with user accounts
 - [x] Allow public analysis without login
 
 ### Feedback System
