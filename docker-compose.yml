@@ -19,5 +19,26 @@ services:
       timeout: 5s
       retries: 5
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: verifyai-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-verifyai}:${POSTGRES_PASSWORD:-verifyai_secret}@db:5432/${POSTGRES_DB:-verifyai}
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      APP_ENV: ${APP_ENV:-production}
+      GOOGLE_FACT_CHECK_API_KEY: ${GOOGLE_FACT_CHECK_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      MODEL_PATH: ml/models
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend/ml/models:/app/ml/models:ro
+
 volumes:
   postgres_data:
