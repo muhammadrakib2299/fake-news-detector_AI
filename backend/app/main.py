@@ -1,5 +1,6 @@
 """VerifyAI — FastAPI Application."""
 
+import asyncio
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -11,9 +12,10 @@ from .routers import analyze, health
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Load model and create tables on startup."""
+    """Create tables on startup, load models in background."""
     create_tables()
-    load_model()
+    # Load models in background so the port opens immediately
+    asyncio.get_event_loop().run_in_executor(None, load_model)
     yield
 
 
@@ -74,6 +76,7 @@ app.include_router(analyze.router, tags=["Analysis"])
 app.include_router(health.router, tags=["Health"])
 
 
+@app.head("/")
 @app.get("/")
 async def root():
     return {"message": "Welcome to VerifyAI API", "docs": "/docs"}
