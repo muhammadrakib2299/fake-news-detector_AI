@@ -82,24 +82,24 @@
 ## Phase 3 — Explainability, Dashboard & Polish
 
 ### Explainability
-- [ ] Integrate LIME for word-level feature importance
-- [ ] Integrate Claude API for natural-language explanation generation
-- [ ] Build `ExplainabilityReport` frontend component
-- [ ] Add word-level highlighting (green/red for real/fake signals)
+- [x] Integrate LIME for word-level feature importance
+- [x] Integrate Claude API for natural-language explanation generation
+- [x] Build `ExplainabilityReport` frontend component
+- [x] Add word-level highlighting (green/red for real/fake signals)
 
 ### Dashboard
-- [ ] Build dashboard page (`/dashboard`)
-- [ ] Add total analyses counter
-- [ ] Add verdict distribution pie chart
-- [ ] Add analysis trends line chart
-- [ ] Add recent analyses list
-- [ ] Add most flagged sources display
+- [x] Build dashboard page (`/dashboard`)
+- [x] Add total analyses counter
+- [x] Add verdict distribution pie chart
+- [x] Add analysis trends line chart
+- [x] Add recent analyses list
+- [x] Add most flagged sources display
 
 ### Authentication
-- [ ] Set up NextAuth.js (Google + GitHub providers)
-- [ ] Add protected routes (dashboard, history)
+- [x] Set up NextAuth.js (Google + GitHub providers)
+- [x] Add protected routes (dashboard, history)
 - [ ] Associate analyses with user accounts
-- [ ] Allow public analysis without login
+- [x] Allow public analysis without login
 
 ### Feedback System
 - [x] Add Correct/Incorrect buttons on results page
@@ -107,7 +107,7 @@
 - [x] Store feedback in database
 
 ### UI Polish
-- [ ] Implement dark mode toggle
+- [x] Implement dark mode toggle
 - [ ] Add page transitions and loading animations
 - [ ] Finalize mobile responsive design
 - [ ] Add meta tags + Open Graph tags
@@ -168,8 +168,8 @@
 |-------|--------|----------|
 | Phase 1 — Foundation & ML | Complete | 22/22 |
 | Phase 2 — Core Features | Complete | 23/23 |
-| Phase 3 — Polish & Explainability | Not Started | 3/18 |
+| Phase 3 — Polish & Explainability | In Progress | 15/18 |
 | Phase 4 — Bonus | Not Started | 0/11 |
 | Deployment | Not Started | 0/7 |
 | Documentation | Not Started | 0/6 |
-| **Total** | **In Progress** | **48/87** |
+| **Total** | **In Progress** | **60/87** |
