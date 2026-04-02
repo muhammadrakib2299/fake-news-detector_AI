@@ -142,11 +142,11 @@
 ---
 
 ## Deployment
-- [ ] Create Dockerfile for backend
-- [ ] Create `docker-compose.yml` (backend + PostgreSQL)
-- [ ] Deploy frontend to Vercel
-- [ ] Deploy backend to Railway or Render
-- [ ] Set up environment variables in production
+- [x] Create Dockerfile for backend
+- [x] Create `docker-compose.yml` (backend + PostgreSQL)
+- [x] Deploy frontend to Vercel
+- [x] Deploy backend to Railway or Render
+- [x] Set up environment variables in production
 - [ ] Configure custom domain (optional)
 - [ ] Final end-to-end testing in production
 
@@ -170,6 +170,6 @@
 | Phase 2 — Core Features | Complete | 23/23 |
 | Phase 3 — Polish & Explainability | Complete | 18/18 |
 | Phase 4 — Bonus | Complete | 14/14 |
-| Deployment | Not Started | 0/7 |
+| Deployment | In Progress | 5/7 |
 | Documentation | Not Started | 0/6 |
-| **Total** | **In Progress** | **77/87** |
+| **Total** | **In Progress** | **82/90** |
