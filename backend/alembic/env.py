@@ -1,5 +1,6 @@
 """Alembic environment configuration."""
 
+import os
 import sys
 from logging.config import fileConfig
 from pathlib import Path
@@ -15,6 +16,10 @@ from app.models import Analysis, Feedback  # noqa: F401 — register models
 
 # Alembic Config object
 config = context.config
+
+# Override sqlalchemy.url from DATABASE_URL env var if set
+if os.environ.get("DATABASE_URL"):
+    config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
 
 # Set up Python logging from alembic.ini
 if config.config_file_name is not None:
