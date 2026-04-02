@@ -351,14 +351,14 @@ Load the `extension/` folder as an unpacked extension in Chrome:
 
 ## Screenshots
 
-*Screenshots of the analysis form, verdict page, explainability report, dashboard, and model comparison page.*
-
-<!-- Add screenshots here:
+### Analysis Form
 ![Analysis Form](docs/screenshots/analysis-form.png)
-![Verdict Page](docs/screenshots/verdict.png)
+
+### Dashboard
 ![Dashboard](docs/screenshots/dashboard.png)
-![Model Comparison](docs/screenshots/compare.png)
--->
+
+### Model Comparison
+![Model Comparison](docs/screenshots/model-comparison.png)
 
 ---
 
